@@ -1,13 +1,25 @@
+// event elements
 const form = document.querySelector("form");
 // kirjuta document.querySelector(" --- ja nüüd vajuta Tab-i, siis võtab selectori käsu automaatselt.
 // kirjuta ...querySelectorAll, kui tahad mitut formi valida
 
 const taskList = document.querySelector(".collection");
+const deleteTasksBtn = document.querySelector("#delete-tasks");
 
 form.addEventListener("submit", addTask);
 // element jälgib sündmust, läheb submit ning tuleb panna ka, kuhu ta läheb (st tegevuse nime), addTask on Anna enda väljamõeldud nimi
-
 taskList.addEventListener("click", deleteTask);
+deleteTasksBtn.addEventListener("click", deleteTasks);
+
+function deleteTasks(event) {
+   // event.target.previousElementSibling.innerHTML = "";  saab ka nii, aga siin on liialt palju kirjutamist
+   //  taskList.innerHTML = ""; kui on väike andmebaas, siis saab nii kustutada (nn asendada tühja väärtusega)
+
+    // while käsku on parem kasutada suurte andmebaasidega, sest see ei koorma süsteemi nii palju kui innerHTML käsk
+    while(taskList.firstElementChild) {
+        taskList.removeChild(taskList.firstChild);
+    }
+}
 
 /* function deleteTask(event) {
     if(event.target.textContent) == "X" {

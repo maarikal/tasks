@@ -62,5 +62,8 @@ function addTask(event) {
     const ul = document.querySelector(".collection");
     ul.appendChild(li);
 
+    // removes task's input
+    taskInput.value = "";
+
     event.preventDefault();
 }  // koodi muutmiseks parem hiirklikk nime peal, sealt Reactor, sealt Rename

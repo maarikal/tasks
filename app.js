@@ -1,3 +1,7 @@
+// TUNNIS KIRJUTATUD KOOD
+
+const  taskInput = document.querySelector("#task");
+
 // event elements
 const form = document.querySelector("form");
 // kirjuta document.querySelector(" --- ja nüüd vajuta Tab-i, siis võtab selectori käsu automaatselt.
@@ -47,7 +51,14 @@ function deleteTask(event) {
 */
 
 function addTask(event) {
+    const task = taskInput.value;
+    console.log(task);
+    event.preventDefault();
+}
+
+    /*
     const taskInput = document.querySelector("#task");
+
     let task = taskInput.value;
     // create <li> element
     const li = document.createElement("li");
@@ -77,5 +88,6 @@ function addTask(event) {
     // removes task's input
     taskInput.value = "";
 
-    event.preventDefault();
+  //  event.preventDefault();
 }  // koodi muutmiseks parem hiirklikk nime peal, sealt Reactor, sealt Rename
+     */

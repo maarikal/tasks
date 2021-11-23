@@ -29,6 +29,8 @@ function addTask(event) {
     const ul = document.querySelector(".collection");
     ul.appendChild(li);
 
+    saveTaskToLocalStorage(task); // salvestame taski brauseri Local Storage
+
     taskInput.value = ""; // teeme Add taski kasti (ehk input välja) tühjaks pärast iga sisestust
     event.preventDefault(); // kontrollib, kas vorm Submit töötab
 }
@@ -51,3 +53,18 @@ function deleteTasks() {
         }
     }
 }
+
+
+function saveTaskToLocalStorage(task) {
+    let tasks;
+    if(localStorage.getItem("tasks") === null) {
+        tasks = [];
+    }   else {
+            tasks = JSON.parse(localStorage.getItem("tasks"));
+    }
+    tasks.push(task);
+    console.log(tasks);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    console.log(tasks);
+}
+

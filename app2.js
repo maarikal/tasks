@@ -54,6 +54,7 @@ function deleteTasks() {
             tasksList.removeChild(tasksList.firstChild);
         }
     }
+    deleteAllTasksFromLocalStorage();
 }
 
 
@@ -85,4 +86,16 @@ function deleteTaskFromLocalStorage(task) {
     })
     localStorage.setItem("tasks", JSON.stringify(tasks));
     console.log(tasks);
+}
+
+
+function deleteAllTasksFromLocalStorage() {
+    // lihtne lahendus: localStorage.clear(); ehk teeb sama, kui vajutad ise LocalStorages Clear nuppu, kuid kui LocalStorages on olemas mitu massiivi, siis clear kustutab kõik. Kui LocalStorages on olemas ainult üks massiiv või eesmärk ongi kustutada kogu LocalStorage sisu, siis sobib clear() meetod hästi
+    let tasks;
+    if(localStorage.getItem("tasks") === null) {
+        tasks = [];
+        localStorage.setItem("tasks", JSON.stringify(tasks)); // lisame juurde, et ka tühja massiivi korral saaks kustutada (oleks nn sisu massiivil olemas)
+        // else lahendust pole vaja, kuna massiivi olemasolul nagunii see kustutatakse
+    }
+    localStorage.removeItem("tasks");
 }

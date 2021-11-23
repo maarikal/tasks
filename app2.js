@@ -37,9 +37,11 @@ function addTask(event) {
 
 
 function deleteTask(event) {
-    if(event.target.textContent == "X") {
+    if(event.target.textContent === "X") {
         if(confirm("Do you want to delete this task?")) {
             event.target.parentElement.remove();
+            task = event.target.parentElement.firstChild.textContent;
+            deleteTaskFromLocalStorage(task);
         }
     }
 }
@@ -63,8 +65,24 @@ function saveTaskToLocalStorage(task) {
             tasks = JSON.parse(localStorage.getItem("tasks"));
     }
     tasks.push(task);
-    console.log(tasks);
     localStorage.setItem("tasks", JSON.stringify(tasks));
     console.log(tasks);
 }
 
+
+function deleteTaskFromLocalStorage(task) {
+    let tasks;
+    if(localStorage.getItem("tasks") === null) {
+        tasks = [];
+    }   else {
+        tasks = JSON.parse(localStorage.getItem("tasks"));
+    }
+    // kasutame forEach meetodit, et välja lugeda massiivi elemendi väärtust ja indeksit ning splice meetodi abil kustutame selle massiivi elemendi (on olemas ka delete meetod, kuid see jätab elemendi kohale undefined koha)
+    tasks.forEach(function (tasksValue, index) {
+        if(tasksValue === task) {
+            tasks.splice(index, 1)
+        }
+    })
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    console.log(tasks);
+}

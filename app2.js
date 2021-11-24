@@ -1,13 +1,16 @@
 // Koduõppe JS ehk siis nn puhtand
 
+// sündmuste elemendid
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#task");
 const tasksList = document.querySelector(".collection")
 const deleteAllTasks = document.querySelector("#delete-tasks");
 
+// sündmused
 form.addEventListener("submit", addTask);
 tasksList.addEventListener("click", deleteTask);
 deleteAllTasks.addEventListener("click", deleteTasks);
+document.addEventListener("DOMContentLoaded", getTasksFromLocalStorage);
 
 
 function addTask(event) {
@@ -98,4 +101,28 @@ function deleteAllTasksFromLocalStorage() {
         // else lahendust pole vaja, kuna massiivi olemasolul nagunii see kustutatakse
     }
     localStorage.removeItem("tasks");
+}
+
+// võtab varem salvestatud ülesanded LocalStorage'st
+function getTasksFromLocalStorage() {
+    let tasks;
+    if(localStorage.getItem("tasks") === null) {
+        tasks = [];
+    }   else {
+        tasks = JSON.parse(localStorage.getItem("tasks"));
+    }
+    tasks.forEach(function (tasksValue) {
+        const li = document.createElement("li");
+        li.className ="collection-item";
+        const taskText = document.createTextNode(tasksValue);
+        li.appendChild(taskText);
+        // loome lingitava elemendi ja lingi atribuudi
+        const link = document.createElement("a");
+        link.setAttribute("href", "#");
+        link.className = "secondary-content";
+        link.appendChild(document.createTextNode("X"));  // loome kustutamise nupu (X-i)
+        li.appendChild(link);
+        const ul = document.querySelector(".collection");
+        ul.appendChild(li);
+    });
 }
